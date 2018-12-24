@@ -1,0 +1,13 @@
+<!doctype html>
+    <title>Prediction</title>
+    <body>
+        <img src="../static/{{ user_image }}" alt="my pic"> 
+        <p>Your image is of a {{ result }}!</p>
+    </body>
+    
+    
+    <h3>Upload new File</h3>
+    <form method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>

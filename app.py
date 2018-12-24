@@ -4,10 +4,11 @@ from fastai.vision import *
 import os
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
 
 app = Flask(__name__)
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static')
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif', 'JPG'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -22,28 +23,31 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
+        # if user does not select file
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            print(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
+            return redirect(url_for('predict', filename=filename))
     return render_template('upload.html')
 
+@app.route('/<filename>', methods=['POST','GET'])
+def predict(filename):
+    #make prediction
+    result = "cat"
 
+    # render template and display image
+    # full_filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    
+    #upload box
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    pass
+    
+    return render_template('result.html', user_image=filename, result=result)
+    # return redirect(url_for('predict', filename=filename))
+    # return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 
