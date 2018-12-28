@@ -39,11 +39,14 @@ def upload_page():
 @app.route('/<filename>', methods=['POST','GET'])
 def predict(filename):
     # make prediction
-    
+    classes = ['Summer_Tanager', 'Barn_Swallow', 'Eastern_Bluebird', 'Brown_Pelican', 'American_Robin',
+        'American_Goldfinch', 'Northern_Cardinal', 'Cedar_Waxwing', 'Bald_Eagle', 'Blue_Jay', 'Great_Blue_Heron',
+        'Red-winged_Blackbird', 'Killdeer', 'Barred_Owl', 'Indigo_Bunting', 'White-breasted_Nuthatch',
+        'Brown_Headed_Nuthatch', 'American_Crow', 'Hooded_Warbler', 'Northern_Mockingbird', 'Carolina_Chickadee']
+        # at somepoint, make this pull from a text file
     
     
     result = "cat"
-
     
     # display page & handle upload
     if request.method == 'POST':
