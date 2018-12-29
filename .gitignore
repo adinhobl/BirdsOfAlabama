@@ -1,7 +1,7 @@
 # Uploads folder
-!static/export.pkl
-!static/models/*
 static/*
+!static/export.pkl
+!static/models
 
 
 # Byte-compiled / optimized / DLL files
