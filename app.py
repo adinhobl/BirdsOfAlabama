@@ -12,6 +12,24 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif', 'JPG'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
+@app.route('/', methods=['GET', 'POST'])
+def upload_page():
+    
+    if request.method == 'POST':
+        return upload_file()
+    return render_template('upload.html')
+
+@app.route('/<filename>', methods=['POST','GET'])
+def predict(filename):
+    # make prediction
+    # result = "cat"
+    result = classify(filename, learn)
+    
+    # display page & handle upload
+    if request.method == 'POST':
+        return upload_file()
+    return render_template('result.html', user_image=filename, result=result)
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -30,31 +48,24 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('predict', filename=filename))
 
-@app.route('/', methods=['GET', 'POST'])
-def upload_page():
-    if request.method == 'POST':
-        return upload_file()
-    return render_template('upload.html')
-
-@app.route('/<filename>', methods=['POST','GET'])
-def predict(filename):
-    # make prediction
-    classes = ['Summer_Tanager', 'Barn_Swallow', 'Eastern_Bluebird', 'Brown_Pelican', 'American_Robin',
-        'American_Goldfinch', 'Northern_Cardinal', 'Cedar_Waxwing', 'Bald_Eagle', 'Blue_Jay', 'Great_Blue_Heron',
-        'Red-winged_Blackbird', 'Killdeer', 'Barred_Owl', 'Indigo_Bunting', 'White-breasted_Nuthatch',
-        'Brown_Headed_Nuthatch', 'American_Crow', 'Hooded_Warbler', 'Northern_Mockingbird', 'Carolina_Chickadee']
-        # at somepoint, make this pull from a text file
+def classify(filename, learn):
     
+    file = Path(UPLOAD_FOLDER)/filename
+
+    f = open_image(file)
+    pred = learn.predict(f)
     
-    result = "cat"
+    return pred[0]
+
+def create_network():
     
-    # display page & handle upload
-    if request.method == 'POST':
-        return upload_file()
-    return render_template('result.html', user_image=filename, result=result)
+    empty_data = ImageDataBunch.load_empty(Path(UPLOAD_FOLDER), 'export.pkl')
+    learn = create_cnn(empty_data, models.resnet18).load('stage-2')
+    
+    return learn
 
-
-
+defaults.device = torch.device('cpu')
+learn = create_network() 
 
 if __name__ == '__main__':
     app.run(debug=True)

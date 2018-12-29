@@ -1,5 +1,7 @@
 # Uploads folder
 static/*
+!static/export.pkl
+!static/models/stage-2.pth
 
 
 # Byte-compiled / optimized / DLL files
