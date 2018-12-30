@@ -8,6 +8,6 @@ If the images are already downloaded and the ImageCleaner is used, uncomment the
 The model used was resnet18 - the model .pth file for resnet34 was 262 Mb. Github only accepts 100 Mb files, and the resnet18 file was ~50 Mb, with only a small decrease in validation set accuracy.
 
 ## Action Shots
-![Upload Screen](https://raw.githubusercontent.com/adinhobl/BirdsOfAlabama/master/readme_Images/upload.png "Upload Screen")
+![Upload Screen](https://raw.githubusercontent.com/adinhobl/BirdsOfAlabama/master/readme_images/upload.png "Upload Screen")
 
-![Result Screen](https://raw.githubusercontent.com/adinhobl/BirdsOfAlabama/master/readme_Images/result.png "Result Screen")
+![Result Screen](https://raw.githubusercontent.com/adinhobl/BirdsOfAlabama/master/readme_images/result.png "Result Screen")
