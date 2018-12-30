@@ -1,9 +1,8 @@
 from flask import Flask, render_template, url_for, request, redirect, flash, send_from_directory
-from fastai import *
-from fastai.vision import *
-import os
 from werkzeug.utils import secure_filename
-
+from fastai import Path, torch, defaults
+from fastai.vision import (ImageDataBunch, create_cnn, open_image, models)
+import os
 
 
 app = Flask(__name__)
@@ -52,8 +51,8 @@ def classify(filename, learn):
     
     file = Path(UPLOAD_FOLDER)/filename
 
-    f = open_image(file)
-    pred = learn.predict(f)
+    image = open_image(file)
+    pred = learn.predict(image)
     
     return pred[0]
 
@@ -64,8 +63,8 @@ def create_network():
     
     return learn
 
-defaults.device = torch.device('cpu')
-learn = create_network() 
 
 if __name__ == '__main__':
+    defaults.device = torch.device('cpu')
+    learn = create_network()
     app.run(debug=True)
