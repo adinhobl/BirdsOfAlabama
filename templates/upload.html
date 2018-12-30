@@ -1,7 +1,24 @@
-<!doctype html>
-    <title>Upload File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style>
+	    body {
+	      background-color: #7aeeff
+	    }
+	</style>
+	<title>Upload File</title>
+</head>
+<body>
+	<h3 align="center"><font size="5">Upload a bird image!</font></h3><br>
+	<p align="center"><font color="#006666" face="Arial" size="4">Currently, the classifier recognizes:</font></p>
+	<p align="center"><font color="gray" face="Arial" size="2">Summer_Tanager, Barn_Swallow, Eastern_Bluebird, Brown_Pelican</font></p>
+	<p align="center"><font color="gray" face="Arial" size="2">American_Robin, American_Goldfinch, Northern_Cardinal, Cedar_Waxwing</font></p>
+	<p align="center"><font color="gray" face="Arial" size="2">Bald_Eagle, Blue_Jay, Great_Blue_Heron, Red-winged_Blackbird, Killdeer</font></p>
+	<p align="center"><font color="gray" face="Arial" size="2">Barred_Owl, Indigo_Bunting, White-breasted_Nuthatch, Brown_Headed_Nuthatch</font></p>
+	<p align="center"><font color="gray" face="Arial" size="2">American_Crow, Hooded_Warbler, Northern_Mockingbird, Carolina_Chickadee</font></p><br>
+	<form enctype="multipart/form-data" method="post">
+		<p align="center"><input name="file" type="file"> <input type="submit" value="Upload"></p>
+	</form>
+</body>
+</html>
